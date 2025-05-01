@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statuie pentru că merităm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .counter {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #222;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Statuie pentru că merităm</h1>
+    <p>
+        Această petiție este pentru crearea unei statui de aproximativ 20 de metri în onoarea neuronilor noștri pierduți 
+        și faptului că, dacă noi nu existam, probabil nici globul nu s-ar mai fi învârtit. 
+        Hai să arătăm lumii cât de importanți suntem!
+    </p>
+
+    <button onclick="signPetition()">Semnează petiția</button>
+
+    <div class="counter" id="counter">
+        Se încarcă...
+    </div>
+
+    <script>
+        async function updateCounter() {
+            const response = await fetch('/.netlify/functions/getCount');
+            const data = await response.json();
+            document.getElementById('counter').innerText = data.count + " persoane au semnat până acum.";
+        }
+
+        async function signPetition() {
+            const response = await fetch('/.netlify/functions/incrementCount', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            document.getElementById('counter').innerText = data.count + " persoane au semnat până acum.";
+        }
+
+        window.onload = updateCounter;
+    </script>
+</body>
+</html>
