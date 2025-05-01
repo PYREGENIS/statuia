@@ -1,0 +1,6 @@
+proiect/
+├── index.html
+└── netlify/
+    └── functions/
+        ├── getCount.js
+        └── incrementCount.js
